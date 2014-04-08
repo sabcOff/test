@@ -1,0 +1,20 @@
+<div class="box">
+	<p class="titleBox">
+	<i class="fa fa-key"></i>Configuration de votre accès
+	</p>
+	<hr>
+	<div class="spinner" style="display:none"></div>
+	<div id='int'>
+		<div id="apbPrompt">
+			Votre accès à Offiboard n'as pas encore été configurer.<br />
+			1: Entrez votre APB dans le champs ci-dessous.<br />
+			<input type="text" id="apb-input" placeholder="Numéro de contrat"/> <br />
+			<input type="submit" value="Continuer" onClick="checkId();"/>
+		</div>
+		<div id="secretPrompt">
+			2: Nous vous avons envoyé une clé de sécurité par sms. Recopiez la ci-dessous.<br />
+			<input type="text" id="secret-input" placeholder="Clé de sécurité"/> <br />
+			<input type="submit" value="Continuer" onClick="checkSecret();"/>
+		</div>
+	</div>
+</div>
