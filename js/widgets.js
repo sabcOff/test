@@ -1,9 +1,10 @@
-CreerWidget = function(id, widType, title, data, name){
+CreerWidget = function(id, widType, title, data, name, period){
 	this.widType = widType;
 	this.id = id;
 	this.title = title;
 	this.data = data;//[[key,value],[key,value]]
 	this.display = 1;
+	this.period = period;
 	this.name = name;
 	this.divContainer = "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div></div>";
 	this.visibilityToogle = function(){
@@ -63,10 +64,10 @@ function buildCharts(){
 	var fromStorage = JSON.parse(storage.getItem("widgetsConfig"));
 	fromStorage.forEach(function(entry){
 		if(entry.visible === "on"){
-			widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name);
+			var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
 			$("#dash").append(widgetC.divContainer);
-			console.log(widgetC.parse());
-			$("#container"+widgetC.id).highcharts(widgetC.parse());
+			console.log(entry.id);
+			widgets.push($.extend(true, {}, widgetC));
 		}
 	});	
 }

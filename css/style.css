@@ -20,6 +20,10 @@
 	padding: 0px;
 }
 
+#dash{
+	display:none;
+}
+
 body {
     /* APPLE FONT --> font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif; */
     font: 16px "Source Sans", helvetica, arial, sans-serif;

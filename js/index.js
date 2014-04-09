@@ -18,6 +18,7 @@ var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
 var notifId = 0000000;
 var uuid;
+var widgets = new Array();
 
 var app = {
 
@@ -401,4 +402,11 @@ function charts() {
 	initialisation();
 	buildCharts();
 	myScroll.refresh();
+	$(".spinner").fadeOut("slow", function(){
+		widgets.forEach(function(entry){
+			$("#dash").fadeIn("slow", function(){
+				$("#container"+entry.id).highcharts(entry.parse());
+			});
+		});
+	});
 }
