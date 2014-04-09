@@ -405,8 +405,8 @@ function charts() {
 		widgets.forEach(function(entry){
 			$("#dash").fadeIn("slow", function(){
 				$("#container"+entry.id).highcharts(entry.parse());
+				myScroll.refresh();
 			});
 		});
 	});
-	myScroll.refresh();
 }
