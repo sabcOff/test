@@ -60,14 +60,15 @@ function initialisation(){
  *
  */
 function buildCharts(){
+	widgets = new Array();
+	$("#dash").html("");
 	//building and displaying widgets
 	var fromStorage = JSON.parse(storage.getItem("widgetsConfig"));
 	fromStorage.forEach(function(entry){
 		if(entry.visible === "on"){
 			var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
 			$("#dash").append(widgetC.divContainer);
-			console.log(entry.id);
-			widgets.push($.extend(true, {}, widgetC));
+			widgets.push($.extend({}, widgetC));
 		}
 	});	
 }
