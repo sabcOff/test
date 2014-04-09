@@ -401,7 +401,6 @@ function checkSecret(){
 function charts() {
 	initialisation();
 	buildCharts();
-	myScroll.refresh();
 	$(".spinner").fadeOut("slow", function(){
 		widgets.forEach(function(entry){
 			$("#dash").fadeIn("slow", function(){
@@ -409,4 +408,5 @@ function charts() {
 			});
 		});
 	});
+	myScroll.refresh();
 }
