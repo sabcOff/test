@@ -157,7 +157,7 @@ function menu(option){
 		$btnLocation.hide();
 		setTitle('Offiboard - Mon Board');
 		myScroll.enable();
-		charts();
+		setTimeout(charts(), 1000);
 	}
 	else if(option == 3){
 		$btnLocation.hide();
