@@ -34,6 +34,7 @@ function initialisation(){
 		//casting to JSON and save it in the local storage
 		if(storage.getItem("widgetsConfig") == null){
 			storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
+	alert("foo");
 		}
 		else{
 			var current = JSON.parse(storage.getItem("widgetsConfig"));

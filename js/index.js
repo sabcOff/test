@@ -16,6 +16,7 @@ $btnLocation = $('a#location');
 var xhReq = new XMLHttpRequest();
 var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
+storage.setItem("accessCompletion", 2);
 var notifId = 0000000;
 var uuid;
 var widgets = new Array();
@@ -343,7 +344,7 @@ function checkId(){
 	        }); 
 	       },
 	      404: function(data) {
-	        alert("ici!");
+	        alert("Le numéro de contrat est invalide!");
 	        $(".spinner").fadeOut(function(){
 	        	$("#apbPrompt").fadeIn();
 	        }); 
