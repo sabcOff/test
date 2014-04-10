@@ -400,7 +400,7 @@ function checkSecret(){
 
 function charts() {
 	initialisation();
-	buildCharts();
+	//buildCharts();
 	$(".spinner").fadeOut("slow", function(){
 		widgets.forEach(function(entry){
 			$("#dash").fadeIn("slow", function(){

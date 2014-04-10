@@ -29,7 +29,7 @@ CreerWidget = function(id, widType, title, data, name, period){
  */
 function initialisation(){
 	//Getting the widgets' string from the server
-	$.getJSON("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/getWidgets/", function(data){
+	$.getJSON("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/getStat/", function(data){
 		
 		//casting to JSON and save it in the local storage
 		if(storage.getItem("widgetsConfig") == null){
@@ -52,6 +52,7 @@ function initialisation(){
 			storage.setItem("widgetsConfig", JSON.stringify(newStr));
 			console.log(storage.getItem("widgetsConfig"));
 		}
+		buildCharts();
 	});
 	
 };
@@ -64,11 +65,12 @@ function buildCharts(){
 	$("#dash").html("");
 	//building and displaying widgets
 	var fromStorage = JSON.parse(storage.getItem("widgetsConfig"));
+	setTimeout(
 	fromStorage.forEach(function(entry){
 		if(entry.visible === "on"){
 			var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
 			$("#dash").append(widgetC.divContainer);
 			widgets.push($.extend({}, widgetC));
 		}
-	});	
+	}), 500);
 }
