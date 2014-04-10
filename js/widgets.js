@@ -65,12 +65,21 @@ function buildCharts(){
 	$("#dash").html("");
 	//building and displaying widgets
 	var fromStorage = JSON.parse(storage.getItem("widgetsConfig"));
-	setTimeout(
-	fromStorage.forEach(function(entry){
-		if(entry.visible === "on"){
-			var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
-			$("#dash").append(widgetC.divContainer);
-			widgets.push($.extend({}, widgetC));
-		}
-	}), 500);
+	setTimeout(function(){
+		fromStorage.forEach(function(entry){
+			if(entry.visible === "on"){
+				var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
+				$("#dash").append(widgetC.divContainer);
+				widgets.push($.extend({}, widgetC));
+			}
+		});
+		$(".spinner").fadeOut("slow", function(){
+			widgets.forEach(function(entry){
+				$("#dash").fadeIn("slow", function(){
+					$("#container"+entry.id).highcharts(entry.parse());
+					myScroll.refresh();
+				});
+			});
+		});
+	}, 500);
 }

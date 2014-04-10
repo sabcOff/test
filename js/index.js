@@ -401,12 +401,4 @@ function checkSecret(){
 function charts() {
 	initialisation();
 	//buildCharts();
-	$(".spinner").fadeOut("slow", function(){
-		widgets.forEach(function(entry){
-			$("#dash").fadeIn("slow", function(){
-				$("#container"+entry.id).highcharts(entry.parse());
-				myScroll.refresh();
-			});
-		});
-	});
 }
