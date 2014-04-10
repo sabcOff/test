@@ -342,6 +342,12 @@ function checkId(){
 	        	$("#apbPrompt").fadeIn();
 	        }); 
 	       },
+	      404: function(data) {
+	        alert("ici!");
+	        $(".spinner").fadeOut(function(){
+	        	$("#apbPrompt").fadeIn();
+	        }); 
+	       },
 	      409: function(data) {
 	        alert("Cet appareil est déjà associé à ce numéro de contrat.");
 	        storage.setItem("accessCompletion", 1);
