@@ -13,6 +13,7 @@ CreerWidget = function(id, widType, title, data, name, period){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
+		this.title = this.title+ " - " +this.period;
 			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 		}
 		else if(this.widType === 2){

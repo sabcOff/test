@@ -155,7 +155,7 @@ function menu(option){
 		$('marquee').marquee();
 	}
 	else if(option == 2){
-		$btnLocation.hide();
+		$btnLocation.show();
 		setTitle('Offiboard - Mon Board');
 		myScroll.enable();
 		setTimeout(charts(), 1000);
