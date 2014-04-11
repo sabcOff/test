@@ -15,9 +15,10 @@ CreerWidget = function(id, widType, title, data, name, period){
 		if(this.widType === 1){
 		this.title = this.title+ " - " +this.period;
 			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
+			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
-			string = {chart:{type:"bar", zoomType:"none"},exporting:{enabled:true},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+			string = {chart:{type:"bar", zoomType:"none"},exporting:{enabled:false},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
 		}
 		return string;
 	};
@@ -30,31 +31,43 @@ CreerWidget = function(id, widType, title, data, name, period){
  */
 function initialisation(){
 	//Getting the widgets' string from the server
-	$.getJSON("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/getStat/", function(data){
-		
-		//casting to JSON and save it in the local storage
-		if(storage.getItem("widgetsConfig") == null){
-			storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
-	alert("foo");
-		}
-		else{
-			var current = JSON.parse(storage.getItem("widgetsConfig"));
-			var newStr = data.widgets;
-			var currentId = new Array();
-			current.forEach(function(entry){
-				if(entry.visible === "off"){
-					currentId.push(entry.id);	
+	$.ajax( {
+		url:"https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/getStat/", 
+		method:"post", 
+		data:{'contrat': storage.getItem("contrat"), 'uuid' : uuid, 'config' : storage.getItem("widgetsConfig")},
+		dataType:'json',
+		statusCode: {
+			200 : function(data){
+				//casting to JSON and save it in the local storage
+				if(storage.getItem("widgetsConfig") == null){
+					storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
 				}
-			});
-			newStr.forEach(function(entry){
-				if($.inArray(entry.id, currentId) != -1){
-					entry.visible = 'off';
+				else{
+					var current = JSON.parse(storage.getItem("widgetsConfig"));
+					var newStr = data.widgets;
+					var currentId = new Array();
+					current.forEach(function(entry){
+						if(entry.visible === "off"){
+							currentId.push(entry.id);	
+						}
+					});
+					newStr.forEach(function(entry){
+						if($.inArray(entry.id, currentId) != -1){
+							entry.visible = 'off';
+						}
+					});
+					storage.setItem("widgetsConfig", JSON.stringify(newStr));
+					console.log(storage.getItem("widgetsConfig"));
 				}
-			});
-			storage.setItem("widgetsConfig", JSON.stringify(newStr));
-			console.log(storage.getItem("widgetsConfig"));
+				buildCharts();
+			},
+			400:function(data){
+				alert("Votre appareil n'a pas été reconnu. Reconfigurez vos accès ou contactez Sabco");
+			},
+			404: function(data){
+				alert("Vos accès ne correspondent pas. Reconfigurez-les ou contactez Sabco");
+			}
 		}
-		buildCharts();
 	});
 	
 };
