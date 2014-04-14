@@ -24,6 +24,12 @@
 	display:none;
 }
 
+.rotfortyfiveright{
+	transform:rotate(-45deg);
+	-ms-transform:rotate(-45deg); /* IE 9 */
+	-webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */
+}
+
 body {
     /* APPLE FONT --> font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif; */
     font: 16px "Source Sans", helvetica, arial, sans-serif;

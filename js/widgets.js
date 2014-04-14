@@ -6,8 +6,15 @@ CreerWidget = function(id, widType, title, data, name, period){
 	this.display = 1;
 	this.period = period;
 	this.name = name;
-	this.divContainer = "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div></div>";
-	this.visibilityToogle = function(){
+	this.divContainer = function(){
+		if(widType === 0){
+			return "<div class='box greyBackground' style='min-width: 310px; margin-left:50px; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div></div>";
+		}
+		else{
+			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div></div>";
+		}
+	};
+	this.visibilityToggle = function(){
 		this.display = (this.display + 1)%2;
 	};
 	this.parse = function(){
@@ -19,6 +26,9 @@ CreerWidget = function(id, widType, title, data, name, period){
 		}
 		else if(this.widType === 2){
 			string = {chart:{type:"bar", zoomType:"none"},exporting:{enabled:false},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+		}
+		else if(this.widType === 0){
+			string = "";
 		}
 		return string;
 	};
@@ -84,14 +94,24 @@ function buildCharts(){
 		fromStorage.forEach(function(entry){
 			if(entry.visible === "on"){
 				var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
-				$("#dash").append(widgetC.divContainer);
+				$("#dash").append(widgetC.divContainer());
 				widgets.push($.extend({}, widgetC));
 			}
 		});
 		$(".spinner").fadeOut("slow", function(){
 			widgets.forEach(function(entry){
-				$("#dash").fadeIn("slow", function(){
-					$("#container"+entry.id).highcharts(entry.parse());
+				$("#dash").fadeIn("fast", function(){
+					if(entry.widType === 0){
+						if(entry.data['delta'] < 0){
+							$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><p style='font-size:200%;'>"+entry.data['nbVente']+"<i class='fa fa-angle-double-down' style='margin-left:5px; color:red; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> ("+entry.data["delta"]+")</span></p>");
+						}
+						else{
+							$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><p style='font-size:200%;'>"+entry.data['nbVente']+"<i class='fa fa-angle-double-up' style='margin-left:5px; color:green; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> (+"+entry.data["delta"]+")</span></p>");
+						}
+					}
+					else{
+						$("#container"+entry.id).highcharts(entry.parse());
+					}
 					myScroll.refresh();
 				});
 			});
