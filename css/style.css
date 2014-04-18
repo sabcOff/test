@@ -24,6 +24,24 @@
 	display:none;
 }
 
+li.period{
+	list-style:none;
+	color:black;
+	float:left;
+	text-decoration: underline;
+	margin-right:15px;
+	margin-top:2px;
+}
+
+li.period.selected{
+	color:grey;
+	text-decoration:none;
+}
+
+ul.periodSelector{
+	margin: 5px;
+}
+
 .rotfortyfiveright{
 	transform:rotate(-45deg);
 	-ms-transform:rotate(-45deg); /* IE 9 */

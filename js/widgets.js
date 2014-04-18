@@ -11,7 +11,7 @@ CreerWidget = function(id, widType, title, data, name, period){
 			return "<div class='box greyBackground' style='min-width: 310px; margin-left:50px; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div></div>";
 		}
 		else{
-			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div></div>";
+			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period selected'>jour</li><li class='period'>semaine</li></ul></center></div></div>";
 		}
 	};
 	this.visibilityToggle = function(){
@@ -26,6 +26,9 @@ CreerWidget = function(id, widType, title, data, name, period){
 		}
 		else if(this.widType === 2){
 			string = {chart:{type:"bar", zoomType:"none"},exporting:{enabled:false},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+		}
+		else if(this.widType === 3){
+			string = {chart:{type:"area"},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
 		}
 		else if(this.widType === 0){
 			string = "";
@@ -53,6 +56,7 @@ function initialisation(){
 					storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
 				}
 				else{
+					console.log(data);
 					var current = JSON.parse(storage.getItem("widgetsConfig"));
 					var newStr = data.widgets;
 					var currentId = new Array();

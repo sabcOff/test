@@ -20,7 +20,6 @@ storage.setItem("accessCompletion", 2);
 var notifId = 0000000;
 var uuid;
 var widgets = new Array();
-
 var app = {
 
 	initialize: function() {
