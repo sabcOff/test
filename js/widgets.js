@@ -7,7 +7,7 @@ CreerWidget = function(id, widType, title, data, name, period){
 	this.period = period;
 	this.name = name;
 	this.divContainer = function(){
-		if(widType === 0){
+		if(widType === 0 || widType === 4){
 			return "<div class='box greyBackground' style='min-width: 310px; margin-left:50px; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div></div>";
 		}
 		else{
@@ -31,6 +31,9 @@ CreerWidget = function(id, widType, title, data, name, period){
 			string = {chart:{type:"area"},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
 		}
 		else if(this.widType === 0){
+			string = "";
+		}
+		else if(this.widType === 4){
 			string = "";
 		}
 		return string;
@@ -112,6 +115,9 @@ function buildCharts(){
 						else{
 							$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><p style='font-size:200%;'>"+entry.data['nbVente']+"<i class='fa fa-angle-double-up' style='margin-left:5px; color:green; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> (+"+entry.data["delta"]+")</span></p>");
 						}
+					}
+					else if(entry.widType === 4){
+						$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br />"+entry.data['list']);
 					}
 					else{
 						$("#container"+entry.id).highcharts(entry.parse());
