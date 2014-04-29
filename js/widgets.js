@@ -8,10 +8,10 @@ CreerWidget = function(id, widType, title, data, name, period){
 	this.name = name;
 	this.divContainer = function(){
 		if(widType === 0 || widType === 4){
-			return "<div class='box greyBackground' style='min-width: 310px; margin-left:50px; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div></div>";
+			return "<div class='box greyBackground' style='min-width: 310px; margin-left:50px; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center></div></div>";
 		}
 		else{
-			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period selected'>jour</li><li class='period'>semaine</li></ul></center></div></div>";
+			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='min-width: 310px; height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center></div></div>";
 		}
 	};
 	this.visibilityToggle = function(){
@@ -127,4 +127,52 @@ function buildCharts(){
 			});
 		});
 	}, 500);
+}
+
+function foo(event, periode){
+	var divperiodSel = $(event.target).parent();
+	$(divperiodSel).find(".period").removeClass("selected");
+	$(event.target).addClass("selected");
+	var container = $(event.target).parent().parent().parent().parent().find(".obchart");
+	var position = $(container).parent();
+	var id = $(container).attr("id").split("container")[1];
+	console.log(id);
+	console.log(position);
+	$(container).slideUp(function(){
+		//container.remove();
+		$.ajax( {
+			url:"https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/widget/"+id+"/"+periode, 
+			method:"post", 
+			data:{'contrat': storage.getItem("contrat"), 'uuid' : uuid, 'config' : storage.getItem("widgetsConfig")},
+			dataType:'json',
+			statusCode: {
+				200:function(data){
+					var json = JSON.stringify(data.widgets);
+					var widgetMaj = null;
+					var entry = JSON.parse(json)[0];
+					console.log("new json = "+json+" ooooo "+entry);
+					widgetMAJ = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
+					//$(widgetMAJ.divContainer()).find(".obchart").hide();
+					//$(position).html($(widgetMAJ.divContainer()).find(".obchart"));
+					$(container).slideDown(function(){
+						if(widgetMAJ.widType === 0){
+							if(widgetMAJ.data['delta'] < 0){
+								$("#container"+widgetMAJ.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+widgetMAJ.title+"</span><br /><p style='font-size:200%;'>"+widgetMAJ.data['nbVente']+"<i class='fa fa-angle-double-down' style='margin-left:5px; color:red; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> ("+widgetMAJ.data["delta"]+")</span></p>");
+							}
+							else{
+								$("#container"+widgetMAJ.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+widgetMAJ.title+"</span><br /><p style='font-size:200%;'>"+widgetMAJ.data['nbVente']+"<i class='fa fa-angle-double-up' style='margin-left:5px; color:green; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> (+"+widgetMAJ.data["delta"]+")</span></p>");
+							}
+						}
+						else if(widgetMAJ.widType === 4){
+							$("#container"+widgetMAJ.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+widgetMAJ.title+"</span><br />"+widgetMAJ.data['list']);
+						}
+						else{
+							$("#container"+widgetMAJ.id).highcharts(widgetMAJ.parse());
+						}
+					myScroll.refresh();
+					});
+				}
+			}
+		});
+	});
 }
