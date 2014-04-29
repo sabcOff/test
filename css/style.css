@@ -79,6 +79,13 @@ h1{
 	color: rgb(51, 51, 51);
 }
 
+.menuDash{
+	background-color:rgba(0,0,0,0.9);
+	
+	height:150px!important;
+	margin-top: 50px;
+}
+
 /* Scroller Box */
 #scroller_container1, #scroller_container2, #scroller_container3, #scroller_container4 {
  /*width: 600px;*/
