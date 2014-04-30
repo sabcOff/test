@@ -152,6 +152,7 @@ function menu(option){
 		setTitle('Offiboard - Home');
 		$btnLocation.hide();
 		myScroll.enable();
+		$(".menuDash").hide();
 		$('marquee').marquee();
 	}
 	else if(option == 2){
@@ -164,14 +165,17 @@ function menu(option){
 		$btnLocation.hide();
 		setTitle('Offiboard - Configuration');
 		myScroll.disable();
+		$(".menuDash").hide();
 	}
 	else if(option == 4){
 		setTitle('Offiboard - Aide');
 		myScroll.enable();
+		$(".menuDash").hide();
 	}
 	else if(option == 5){
 		setTitle('Offiboard - Contact');
 		mapObject.init();
+		$(".menuDash").hide();
 	}
 
 	//Refresh of the iScroll plugin
