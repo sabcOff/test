@@ -25,7 +25,7 @@ CreerWidget = function(id, widType, title, data, name, period){
 			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
-			string = {chart:{type:"bar", zoomType:"none"},exporting:{enabled:false},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+			string = {chart:{type:"bar", zoomType:"none"},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
 		}
 		else if(this.widType === 3){
 			string = {chart:{type:"area"},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
@@ -123,6 +123,7 @@ function buildCharts(){
 						$("#container"+entry.id).highcharts(entry.parse());
 					}
 					myScroll.refresh();
+					setTimeout(function(){$(".menuDash").fadeIn();}, 100);
 				});
 			});
 		});
