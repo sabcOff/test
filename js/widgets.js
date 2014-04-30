@@ -84,9 +84,6 @@ function initialisation(){
 			404: function(data){
 				alert("Vos accès ne correspondent pas. Reconfigurez-les ou contactez Sabco");
 			}
-			default:function(data){
-				alert("foo");
-			}
 		}
 	});
 	
