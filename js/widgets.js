@@ -8,8 +8,11 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.name = name;
 	this.aide = aide;
 	this.divContainer = function(){
-		if(widType === 0 || widType === 4){
-			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div> <div onclick='showHelp(this)'><i class='fa fa-question'></i></div></div></div>";
+		if(widType === 0){
+			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' class='obchart' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div> <div onclick='showHelp(this)'><i class='fa fa-question'></i></div></div></div>";
+		}
+		else if(widType === 4){
+			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' class='obchart' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><div id='tooltip' style='display:none;'>"+this.aide+"</div> <div onclick='showHelp(this)'><i class='fa fa-question'></i></div></div></div>";
 		}
 		else{
 			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div><div onclick='showHelp(this)'><i class='fa fa-question ctaHelp'></i></div></div></div>";
@@ -118,7 +121,7 @@ function buildCharts(){
 						}
 					}
 					else if(entry.widType === 4){
-						$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br />"+entry.data['list']);
+						$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><span style='font-size:50%;'>"+entry.data['list']+"</span>");
 					}
 					else{
 						$("#container"+entry.id).highcharts(entry.parse());
@@ -136,6 +139,9 @@ function foo(event, periode){
 	$(divperiodSel).find(".period").removeClass("selected");
 	$(event.target).addClass("selected");
 	var container = $(event.target).parent().parent().parent().parent().find(".obchart");
+	if (container == null){
+		container = $(event.taget).parent().find(".obchart");
+	}
 	var position = $(container).parent();
 	var id = $(container).attr("id").split("container")[1];
 	console.log(id);
@@ -166,7 +172,7 @@ function foo(event, periode){
 							}
 						}
 						else if(widgetMAJ.widType === 4){
-							$("#container"+widgetMAJ.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+widgetMAJ.title+"</span><br />"+widgetMAJ.data['list']);
+							$("#container"+widgetMAJ.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+widgetMAJ.title+"</span><br /><span style='font-size:50%;'>"+widgetMAJ.data['list']+"</span>");
 						}
 						else{
 							$("#container"+widgetMAJ.id).highcharts(widgetMAJ.parse());
