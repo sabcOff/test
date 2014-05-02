@@ -20,6 +20,20 @@
 	padding: 0px;
 }
 
+.tooltipbox{
+	background:url("../img/close.jpg") top right no-repeat;
+	background-color:white;
+	background-size: 15px;
+	border-radius: 10px;
+	width:60%;
+	height:120px;
+	overflow:scroll;
+	color:black;
+	padding:20px;
+	margin:0 auto;
+	margin-top:30%;
+}
+
 #dash{
 	display:none;
 	padding-bottom:200px;
@@ -34,6 +48,23 @@
 	width:90%;
 	display:none;
 	line-height:33px;
+}
+
+.aboutChart{
+	position:relative;
+	z-index:100;
+}
+
+#helpOverlay{
+	display:none;
+	background-color: rgba(0,0,0, 0.7);
+	z-index:100000;
+	min-width: 100%;
+	min-height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	color:white;
 }
 
 .dropup{

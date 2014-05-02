@@ -31,13 +31,15 @@
 						</a>
 					</div>
 				</div>
+				
+				<div id="helpOverlay" onclick="$('#helpOverlay').fadeOut();"></div>
 				<div id="wrapper">
 					<div class="scroller">
 						<div id="sectionContent"></div>
 					</div>
 				</div>
 			<div class="menuDash">
-			<center>
+				<center>
 				<div class="dropItem" onclick="myScroll.scrollTo(0, -10); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Taux DCI</div>
 				<div class="dropItem" onclick="myScroll.scrollTo(0, -470); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Top 5 Spécialités</div>
 				<div class="dropItem" onclick="myScroll.scrollTo(0, -940); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');"># vente</div>
@@ -53,10 +55,8 @@
 				<div class="dropup">goto</div>
 				</center>
 			</div>
-		</div>
-					
+		</div>	
 	</div>
-
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="js/marquee.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>

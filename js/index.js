@@ -412,3 +412,9 @@ function charts() {
 	initialisation();
 	//buildCharts();
 }
+
+function showHelp(elem){
+	var text = $(elem).parent().find("#tooltip").text();
+	$("#helpOverlay").html("<div class='tooltipbox'>"+text+"</div>");
+	$("#helpOverlay").fadeIn();
+}

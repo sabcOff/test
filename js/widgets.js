@@ -1,4 +1,4 @@
-CreerWidget = function(id, widType, title, data, name, period){
+CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.widType = widType;
 	this.id = id;
 	this.title = title;
@@ -6,12 +6,13 @@ CreerWidget = function(id, widType, title, data, name, period){
 	this.display = 1;
 	this.period = period;
 	this.name = name;
+	this.aide = aide;
 	this.divContainer = function(){
 		if(widType === 0 || widType === 4){
-			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center></div></div>";
+			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div> <div onclick='showHelp(this)'><i class='fa fa-question'></i></div></div></div>";
 		}
 		else{
-			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center></div></div>";
+			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div><div onclick='showHelp(this)'><i class='fa fa-question ctaHelp'></i></div></div></div>";
 		}
 	};
 	this.visibilityToggle = function(){
@@ -100,7 +101,7 @@ function buildCharts(){
 	setTimeout(function(){
 		fromStorage.forEach(function(entry){
 			if(entry.visible === "on"){
-				var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
+				var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period, entry.aide);
 				$("#dash").append(widgetC.divContainer());
 				widgets.push($.extend({}, widgetC));
 			}
@@ -152,7 +153,7 @@ function foo(event, periode){
 					var widgetMaj = null;
 					var entry = JSON.parse(json)[0];
 					console.log("new json = "+json+" ooooo "+entry);
-					widgetMAJ = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period);
+					widgetMAJ = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period, entry.aide);
 					//$(widgetMAJ.divContainer()).find(".obchart").hide();
 					//$(position).html($(widgetMAJ.divContainer()).find(".obchart"));
 					$(container).slideDown(function(){
@@ -171,6 +172,7 @@ function foo(event, periode){
 							$("#container"+widgetMAJ.id).highcharts(widgetMAJ.parse());
 						}
 					myScroll.refresh();
+
 					});
 				}
 			}
