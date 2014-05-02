@@ -36,7 +36,21 @@
 						<div id="sectionContent"></div>
 					</div>
 				</div>
-			<div class="menuDash"><a href="javascript:myScroll.scrollTo(0, -10);">DCI</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -470);">Top 5 Spécialités</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -940);">Nombre de vente</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -1110);">Chiffre d'affaire</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -1580);">Top médecin</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -2050);">Top vendeur</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -2500);"># demande insatisfaite</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -2680);"># ordonnance manquante</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -2850);">Marge</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -3320);">Péremptions</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -3500);">Valeur du Stock (achat)</a> &nbsp; | &nbsp;<a href="javascript:myScroll.scrollTo(0, -3970);">Valeur du stock (vente)</a> &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			<div class="menuDash">
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -10); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Taux DCI</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -470); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Top 5 Spécialités</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -940); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');"># vente</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -1110); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Chiffre d'affaire</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -1580); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Top médecin</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -2050); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Top vendeur</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -2500); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');"># demande insatisfaite</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -2680); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');"># ordonnance manquante</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -2850); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Marge</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -3320); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Péremptions</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -3500); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Valeur du Stock (achat)</div>
+				<div class="dropItem" onclick="myScroll.scrollTo(0, -3970); $('.dropup').text($(this).text()); $('.dropItem').slideToggle('fast');">Valeur du Stock (vente)</div>
+				<div class="dropup">goto</div>
+				
 			</div>
 		</div>
 					
@@ -57,6 +71,10 @@
 	<script id="test" type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript">
 	    app.initialize();
+	    
+    	$(".dropup").click(function(event){
+			$(".dropItem").slideToggle("fast");
+		});
 	</script>
 </body>
 </html>

@@ -94,7 +94,6 @@ var app = {
     	pushNotification = window.plugins.pushNotification;
     	
     	
-    	
     	//REGISTERING TO PUSH SERVICES
     	if ( device.platform == 'android' || device.platform == 'Android' ){
 			pushNotification.register(
