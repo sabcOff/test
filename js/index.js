@@ -73,7 +73,13 @@ var app = {
 			$("#secretPrompt").show();
 		}
 		else if(flagStep2 == 2){
-			$("marquee").marquee();
+			$.post( "https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/api/welcomeString", { uuid: uuid, contrat: storage.getItem("contrat") }, function( data ) {
+			  $( "#marqueeDiv" ).html( data );
+			  $( "#marqueeDiv" ).marquee();
+			});
+			$.get("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/news/", function(data){
+				$("#newsContainer").html(data);
+			});
 		}
 
 		//Add default active class to the menu
@@ -92,8 +98,6 @@ var app = {
     	//uuid = device.uuid;
     	alert(uuid);
     	pushNotification = window.plugins.pushNotification;
-    	
-    	
     	//REGISTERING TO PUSH SERVICES
     	if ( device.platform == 'android' || device.platform == 'Android' ){
 			pushNotification.register(
@@ -133,6 +137,13 @@ var app = {
 
 function menu(option){
 
+	//check language
+	if(storage.getItem("lang") == undefined){
+		storage.setItem("lang", 0); //0 = UK; 1 = FR; 2 = NL
+	}
+	var lang = parseInt(storage.getItem("lang"));
+	console.log(lang);
+
 	//Remove previous active class
 	$( "ul.ulMenu li:nth-child("+activeLi+")" ).removeClass( "active" );
 
@@ -148,31 +159,60 @@ function menu(option){
 	document.getElementById("sectionContent").innerHTML=xhReq.responseText;
 
 	if(option == 1){
-		setTitle('Offiboard - Home');
+		switch(lang){
+			case 0 : setTitle('Offiboard - Home');break;
+			case 1 : setTitle('Offiboard - Accueil');break;
+			case 2 : setTitle('Offiboard - Home');break;
+		}
+		
 		$btnLocation.hide();
 		myScroll.enable();
 		$(".menuDash").hide();
-		$('marquee').marquee();
+		
+		$.post( "https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/api/welcomeString", { uuid: uuid, contrat: storage.getItem("contrat") }, function( data ) {
+		  	$( "#marqueeDiv" ).html( data );
+			$('#marqueeDiv').marquee();
+		});
+		
+		$.get("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/news/", function(data){
+			$("#newsContainer").html(data);
+		});
 	}
 	else if(option == 2){
+		switch(lang){
+			case 0 : setTitle('Offiboard - My board');break;
+			case 1 : setTitle('Offiboard - Mon board');break;
+			case 2 : setTitle('Offiboard - Mijn board');break;
+		}
 		$btnLocation.show();
-		setTitle('Offiboard - Mon Board');
 		myScroll.enable();
 		setTimeout(charts(), 1000);
 	}
 	else if(option == 3){
+		switch(lang){
+			case 0 : setTitle('Offiboard - Configuration');break;
+			case 1 : setTitle('Offiboard - Configuration');break;
+			case 2 : setTitle('Offiboard - Configuratie');break;
+		}
 		$btnLocation.hide();
-		setTitle('Offiboard - Configuration');
 		myScroll.disable();
 		$(".menuDash").hide();
 	}
 	else if(option == 4){
-		setTitle('Offiboard - Aide');
+		switch(lang){
+			case 0 : setTitle('Offiboard - Help');break;
+			case 1 : setTitle('Offiboard - Aide');break;
+			case 2 : setTitle('Offiboard - Hulp');break;
+		}
 		myScroll.enable();
 		$(".menuDash").hide();
 	}
 	else if(option == 5){
-		setTitle('Offiboard - Contact');
+		switch(lang){
+			case 0 : setTitle('Offiboard - Contact');break;
+			case 1 : setTitle('Offiboard - Contact');break;
+			case 2 : setTitle('Offiboard - Contact');break;
+		}
 		mapObject.init();
 		$(".menuDash").hide();
 	}
@@ -197,7 +237,7 @@ var mapObject = {
 		var markers = [];
 		var latlng = new google.maps.LatLng(49.647325, 5.964669);
 		var myOptions = {
-			zoom: 16,
+			zoom: 18,
 			center: latlng,
 			disableDefaultUI: true,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -417,4 +457,19 @@ function showHelp(elem){
 	var text = $(elem).parent().find("#tooltip").text();
 	$("#helpOverlay").html("<div class='tooltipbox'>"+text+"</div>");
 	$("#helpOverlay").fadeIn();
+}
+
+function setLang(codeLang){
+	lang = parseInt(codeLang);
+	if(lang === 0 || lang === 1 || lang === 2){
+		storage.setItem("lang", lang);
+		switch(lang){
+			case 0 : alert("Switched to english");break;
+			case 2 : alert("Veranderd voor het nederlands");break;
+			case 1 : alert("Changé pour le français");break;	
+		}
+	}
+	else{
+		alert("language code invalid");
+	}
 }

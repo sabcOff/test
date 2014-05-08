@@ -24,7 +24,6 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
-		this.title = this.title+ " - " +this.period;
 			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 			console.log(JSON.stringify(string));
 		}
@@ -59,26 +58,8 @@ function initialisation(){
 		statusCode: {
 			200 : function(data){
 				//casting to JSON and save it in the local storage
-				if(storage.getItem("widgetsConfig") == null){
+				if(storage.getItem("widgetsConfig") == undefined){
 					storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
-				}
-				else{
-					console.log(data);
-					var current = JSON.parse(storage.getItem("widgetsConfig"));
-					var newStr = data.widgets;
-					var currentId = new Array();
-					current.forEach(function(entry){
-						if(entry.visible === "off"){
-							currentId.push(entry.id);	
-						}
-					});
-					newStr.forEach(function(entry){
-						if($.inArray(entry.id, currentId) != -1){
-							entry.visible = 'off';
-						}
-					});
-					storage.setItem("widgetsConfig", JSON.stringify(newStr));
-					console.log(storage.getItem("widgetsConfig"));
 				}
 				buildCharts();
 			},
@@ -104,7 +85,15 @@ function buildCharts(){
 	setTimeout(function(){
 		fromStorage.forEach(function(entry){
 			if(entry.visible === "on"){
-				var widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period, entry.aide);
+				var lang = parseInt(storage.getItem("lang"));
+				console.log("lang = "+lang);
+				var widgetC = null;
+				switch(lang){
+					case 0:widgetC = CreerWidget(entry.id, entry.widType, entry.titleuk, entry.data, entry.name, entry.period, entry.aideuk);break;
+					case 1:widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period, entry.aide);break;
+					case 2:widgetC = CreerWidget(entry.id, entry.widType, entry.titlenl, entry.data, entry.name, entry.period, entry.aidenl);break;
+					default:widgetC = CreerWidget(entry.id, entry.widType, entry.title, entry.data, entry.name, entry.period, entry.aide);break;
+				}
 				$("#dash").append(widgetC.divContainer());
 				widgets.push($.extend({}, widgetC));
 			}

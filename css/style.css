@@ -20,6 +20,9 @@
 	padding: 0px;
 }
 
+#newsContainer a{
+	color:#3295B3;
+}
 .tooltipbox{
 	background:url("../img/close.jpg") top right no-repeat;
 	background-color:white;
