@@ -16,7 +16,7 @@ $btnLocation = $('a#location');
 var xhReq = new XMLHttpRequest();
 var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
-storage.setItem("accessCompletion", 2);
+//storage.setItem("accessCompletion", 2);
 var uuid;
 //uuid = "da371832b49ca7e5"; storage.setItem("contrat", 2); 
 var notifId = 0000000;
