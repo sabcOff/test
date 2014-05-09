@@ -135,8 +135,9 @@ function foo(event, periode){
 	var id = $(container).attr("id").split("container")[1];
 	console.log(id);
 	console.log(position);
-	$(container).slideUp(function(){
-		//container.remove();
+	$(container).fadeOut("fast", function(){
+		container.html('<div class="spinner"></div>');
+		$(container).fadeIn("fast");
 		$.ajax( {
 			url:"https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/widget/"+id+"/"+periode, 
 			method:"post", 
