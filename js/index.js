@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
 
 //Declare variables
 var myScroll, wrapper, $sectionTitle, $btnLocation, activeLi = 1;
-
+var strOneByOne;
 //Set variables
 body = document.getElementById("body"),
 wrapper = document.getElementById("wrapper");
@@ -18,7 +18,7 @@ var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
 //storage.setItem("accessCompletion", 2);
 var uuid;
-//uuid = "da371832b49ca7e5"; storage.setItem("contrat", 2); 
+uuid = "a8ecaec2a9f56c1b"; storage.setItem("contrat", 3); 
 var notifId = 0000000;
 var widgets = new Array();
 var app = {
@@ -96,7 +96,7 @@ var app = {
     onDeviceReady: function() {
     	alert("device ready");
     	uuid = device.uuid;
-    	alert(uuid);
+    	//alert(uuid);
     	pushNotification = window.plugins.pushNotification;
     	//REGISTERING TO PUSH SERVICES
     	if ( device.platform == 'android' || device.platform == 'Android' ){
