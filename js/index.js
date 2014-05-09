@@ -95,7 +95,7 @@ var app = {
     },
     onDeviceReady: function() {
     	alert("device ready");
-    	//uuid = device.uuid;
+    	uuid = device.uuid;
     	alert(uuid);
     	pushNotification = window.plugins.pushNotification;
     	//REGISTERING TO PUSH SERVICES
@@ -366,11 +366,12 @@ function checkId(){
 		$(".spinner").fadeIn();
 	}); 
 	var contrat = $("#apb-input").val();
+	alert('contrat: '+contrat+' uuid: '+uuid+' notif: '+notifId);
 	var url = "https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/hello/";
 	$.ajax( {
 		url:url, 
 		method:"POST", 
-		data:{'contrat': contrat, 'uuid' : uuid, 'notifId' : notifId},
+		data:{'contrat': parseInt(contrat), 'uuid' : uuid, 'notifId' : notifId},
 		statusCode: {
 	      200: function(data) {
 	        alert(data);
