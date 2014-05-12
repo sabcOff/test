@@ -16,10 +16,12 @@ $btnLocation = $('a#location');
 var xhReq = new XMLHttpRequest();
 var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
-storage.setItem("accessCompletion", 2);
 var uuid;
-uuid = "a8ecaec2a9f56c1b"; storage.setItem("contrat", 3); 
-var notifId = 0000000;
+/*
+BYPASS ASCCESS 
+uuid = "a8ecaec2a9f56c1b"; storage.setItem("contrat", 3);
+storage.setItem("accessCompletion", 2); 
+var notifId = 0000000;*/
 var widgets = new Array();
 var app = {
 
@@ -310,6 +312,7 @@ function tokenHandler (result) {
     // Your iOS push server needs to know the token before it can push to this device
     // here is where you might want to send it the token for later use.
     alert('device token = ' + result);
+    notifId = result;
 }
 
 // iOS
