@@ -24,7 +24,7 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
-			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
+			string = {chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:"Browser market shares at a specific website, 2014"},tooltip:{pointFormat:"{series.name}: <b>{point.percentage:.1f}%</b>"},plotOptions:{pie:{allowPointSelect:true,cursor:"pointer",dataLabels:{enabled:false},showInLegend:true}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]}//{chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false}, title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"},dataLabels: {enabled: false},showInLegend: true},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
@@ -67,29 +67,7 @@ function initialisation(){
 			}
 		});
 	  },
-	});/*
-	$.ajax( {
-		url:"https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/getStat/",
-		beforeSend: function(xhr){xhr.setRequestHeader('Origin', '*');},
-		method:"post", 
-		data:{'contrat': storage.getItem("contrat"), 'uuid' : uuid, 'config' : storage.getItem("widgetsConfig")},
-		dataType:'json',
-		statusCode: {
-			200 : function(data){
-				//casting to JSON and save it in the local storage
-				if(storage.getItem("widgetsConfig") == undefined){
-					storage.setItem("widgetsConfig", JSON.stringify(data.widgets));
-				}
-				buildCharts();
-			},
-			400:function(data){
-				alert("Votre appareil n'a pas été reconnu. Reconfigurez vos accès ou contactez Sabco");
-			},
-			404: function(data){
-				alert("Vos accès ne correspondent pas. Reconfigurez-les ou contactez Sabco");
-			}
-		}
-	});*/
+	});
 };
 
 /*
