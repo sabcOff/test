@@ -24,7 +24,7 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
-			string = {chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:"Browser market shares at a specific website, 2014"},tooltip:{pointFormat:"{series.name}: <b>{point.percentage:.1f}%</b>"},plotOptions:{pie:{allowPointSelect:true,cursor:"pointer",dataLabels:{enabled:false},showInLegend:true}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]}//{chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false}, title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"},dataLabels: {enabled: false},showInLegend: true},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
+			string = {chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:"{series.name}: <b>{point.percentage:.1f}%</b>"},plotOptions:{pie:{allowPointSelect:true,cursor:"pointer",dataLabels:{enabled:false},showInLegend:true}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]}//{chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false}, title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"},dataLabels: {enabled: false},showInLegend: true},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
