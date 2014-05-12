@@ -15,7 +15,7 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 			return "<div class='box greyBackground'; margin:0 auto;'><div id='container"+this.id+"' class='obchart' style='font-size:200%; border-radius:5px; background-color:white; text-align:center;'></div><div style='width:100%'><div id='tooltip' style='display:none;'>"+this.aide+"</div> <div onclick='showHelp(this)'><i class='fa fa-question'></i></div></div></div>";
 		}
 		else{
-			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='height: 400px; margin-left:50px; margin:0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div><div onclick='showHelp(this)'><i class='fa fa-question ctaHelp'></i></div></div></div>";
+			return "<div class='box greyBackground'><div id='container"+this.id+"' class='obchart' style='height: 400px; margin-left:50px; margin: 0 auto;'></div><div style='width:100%'><center><ul class='periodSelector'><li class='period' onclick='foo(event, 0);'>heure</li><li class='period' onclick='foo(event, 1);'>jour</li><li class='period selected' onclick='foo(event, 2);'>semaine</li><li class='period' onclick='foo(event, 3);'>mois</li><li class='period' onclick='foo(event, 4);'>18 mois</li></ul></center><div id='tooltip' style='display:none;'>"+this.aide+"</div><div onclick='showHelp(this)'><i class='fa fa-question ctaHelp'></i></div></div></div>";
 		}
 	};
 	this.visibilityToggle = function(){
@@ -24,14 +24,14 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
-			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false, width:($(window).width()*0.96)},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
+			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
-			string = {chart:{type:"bar", zoomType:"none", width:($(window).width()*0.96)},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+			string = {chart:{type:"bar", zoomType:"none"},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
 		}
 		else if(this.widType === 3){
-			string = {chart:{type:"area", width:($(window).width()*0.96)},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
+			string = {chart:{type:"area"},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
 		}
 		else if(this.widType === 0){
 			string = "";
@@ -118,7 +118,6 @@ function buildCharts(){
 		});
 		$(".spinner").fadeOut("slow", function(){
 			widgets.forEach(function(entry){
-				$("#dash").fadeIn("fast", function(){
 					if(entry.widType === 0){
 						if(entry.data['delta'] < 0){
 							$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><p style='font-size:200%;'>"+entry.data['nbVente']+"<i class='fa fa-angle-double-down' style='margin-left:5px; color:red; margin-right:15px; font-size:70%;'></i><span style='font-size:30%'> ("+entry.data["delta"]+")</span></p>");
@@ -131,11 +130,12 @@ function buildCharts(){
 						$("#container"+entry.id).html("<span style='color:#274B6D; font-size:70%; font-weight:500;'>"+entry.title+"</span><br /><span style='font-size:50%;'>"+entry.data['list']+"</span>");
 					}
 					else{
-						$("#container"+entry.id).highcharts(entry.parse());
+						//$("#container"+entry.id).highcharts(entry.parse());
 					}
 					myScroll.refresh();
-					setTimeout(function(){$(".menuDash").fadeIn();}, 100);
-				});
+					$("#dash").fade("fast", function(){
+						setTimeout(function(){$(".menuDash").fadeIn();}, 100);
+					});
 			});
 		});
 	}, 500);
@@ -237,6 +237,7 @@ function fillPreWid(){
 							$("#dash").fadeIn();
 						});
 						myScroll.refresh();
+						$(window).resize();
 						setTimeout(function(){$(".menuDash").fadeIn();}, 100);
 					}
 				}
