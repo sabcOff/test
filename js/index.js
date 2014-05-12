@@ -96,7 +96,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-    	alert("device ready");
+    	//alert("device ready");
     	uuid = device.uuid;
     	//alert(uuid);
     	pushNotification = window.plugins.pushNotification;
@@ -301,17 +301,17 @@ $( window ).resize(function() {
 });
 
 function successHandler (result) {
-    alert('result = ' + result);
+    //alert('result = ' + result);
 }
 
 function errorHandler (error) {
-    alert('error = ' + error);
+    //alert('error = ' + error);
 }
 
 function tokenHandler (result) {
     // Your iOS push server needs to know the token before it can push to this device
     // here is where you might want to send it the token for later use.
-    alert('device token = ' + result);
+    //alert('device token = ' + result);
     notifId = result;
 }
 
@@ -342,7 +342,7 @@ function onNotificationGCM(e) {
 			{
 				//console.log("Regid " + e.regid);
 				notifId = e.regid;
-				alert('registration id = '+e.regid);
+				//alert('registration id = '+e.regid);
 			}
 		break;
 
@@ -369,7 +369,7 @@ function checkId(){
 		$(".spinner").fadeIn();
 	}); 
 	var contrat = $("#apb-input").val();
-	alert('contrat: '+contrat+' uuid: '+uuid+' notif: '+notifId);
+	//alert('contrat: '+contrat+' uuid: '+uuid+' notif: '+notifId);
 	var url = "https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/hello/";
 	$.ajax( {
 		url:url, 
@@ -385,7 +385,7 @@ function checkId(){
 	        }); 
 	      },
 	      400: function(data) {
-	        alert("Oups!");
+	        //alert("Oups!");
 	        $(".spinner").fadeOut(function(){
 	        	$("#apbPrompt").fadeIn();
 	        }); 
