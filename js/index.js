@@ -16,7 +16,7 @@ $btnLocation = $('a#location');
 var xhReq = new XMLHttpRequest();
 var heightBody = window.innerHeight-50;
 var storage = window.localStorage;
-//storage.setItem("accessCompletion", 2);
+storage.setItem("accessCompletion", 2);
 var uuid;
 uuid = "a8ecaec2a9f56c1b"; storage.setItem("contrat", 3); 
 var notifId = 0000000;
@@ -465,9 +465,9 @@ function setLang(codeLang){
 	if(lang === 0 || lang === 1 || lang === 2){
 		storage.setItem("lang", lang);
 		switch(lang){
-			case 0 : alert("Switched to english");break;
-			case 2 : alert("Veranderd voor het nederlands");break;
-			case 1 : alert("Changé pour le français");break;	
+			case 0 : alert("Switched to english");$("#textMenuHome").text("Home");$("#textMenuBoard").text("My Board");$("#textMenuLang").text("Language");break;
+			case 2 : alert("Veranderd voor het nederlands");$("#textMenuHome").text("Home");$("#textMenuBoard").text("Mijn Board");$("#textMenuLang").text("Taal");break;
+			case 1 : alert("Changé pour le français");$("#textMenuHome").text("Accueil");$("#textMenuBoard").text("Mon board");$("#textMenuLang").text("Langue");break;	
 		}
 	}
 	else{

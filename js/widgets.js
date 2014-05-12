@@ -24,14 +24,14 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.parse = function(){
 		var string = "";
 		if(this.widType === 1){
-			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
+			string = {chart:{plotBackgroundColor:null,plotBorderWidth:0,plotShadow:false, width:($(window).width()*0.96)},title:{text:this.title},tooltip:{pointFormat:'{point.percentage:.1f}%'},plotOptions:{pie:{dataLabels:{enabled:true,style:{color:"black"}},startAngle:-90,endAngle:90,center:['50%','75%']}},series:[{type:'pie',name:this.name,innerSize:'50%',data:this.data}]};
 			console.log(JSON.stringify(string));
 		}
 		else if(this.widType === 2){
-			string = {chart:{type:"bar", zoomType:"none"},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
+			string = {chart:{type:"bar", zoomType:"none", width:($(window).width()*0.96)},title:{text:this.title},xAxis:{categories:this.data["cat"],title:{text:null}},yAxis:{min:0,title:{text:this.data['xaxis'],align:"high"},labels:{overflow:"justify"}},legend:{enabled:false,layout:"vertical",align:"right",verticalAlign:"top",x:-40,y:100,floating:true,borderWidth:1,backgroundColor:"#FFFFFF",shadow:true},tooltip:{},plotOptions:{bar:{dataLabels:{enabled:true}}},credits:{enabled:false},series:this.data["serie"]};
 		}
 		else if(this.widType === 3){
-			string = {chart:{type:"area"},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
+			string = {chart:{type:"area", width:($(window).width()*0.96)},title:{text:this.title},xAxis:{categories: this.data['cat']},yAxis:{title:{text:"Valeur"}},tooltip:{pointFormat:"Chiffre d'affaire: <b>{point.y:,.0f}</b>"},legend:{enabled:false},credit:{disabled:true},series:[{name:"USA",data:this.data["ca"]}]};
 		}
 		else if(this.widType === 0){
 			string = "";
@@ -239,7 +239,6 @@ function fillPreWid(){
 						myScroll.refresh();
 						setTimeout(function(){$(".menuDash").fadeIn();}, 100);
 					}
-					
 				}
 			}
 		});
