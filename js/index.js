@@ -171,13 +171,11 @@ function menu(option){
 		myScroll.enable();
 		$(".menuDash").hide();
 		
-		//welcome string
 		$.post( "https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/api/welcomeString", { uuid: uuid, contrat: storage.getItem("contrat") }, function( data ) {
 		  	$( "#marqueeDiv" ).html( data );
 			$('#marqueeDiv').marquee();
 		});
 		
-		//news
 		$.get("https://ssl11.ovh.net/~sabco/offiboard/sf/rest2/web/app_dev.php/news/", function(data){
 			$("#newsContainer").html(data);
 		});
@@ -478,11 +476,4 @@ function setLang(codeLang){
 	else{
 		alert("language code invalid");
 	}
-}
-
-function demo(){
-	uuid = "a8ecaec2a9f56c1b"; storage.setItem("contrat", 2);
-	storage.setItem("accessCompletion", 2); 
-	var notifId = 0000000;
-	menu(2);
 }

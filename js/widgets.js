@@ -1,4 +1,3 @@
-//constructeur
 CreerWidget = function(id, widType, title, data, name, period, aide){
 	this.widType = widType;
 	this.id = id;
@@ -45,9 +44,6 @@ CreerWidget = function(id, widType, title, data, name, period, aide){
 	return this;
 };
 
-
-
-
 /*
  * Initialisation
  * grab data from API save it and parse it into widgets
@@ -65,7 +61,7 @@ function initialisation(){
 	  	data.ids.forEach(function(entry){
 	  		ht = ht + "<div id='"+entry+"' class='preWid'></div>";
 			i = i + 1;
-			if(i == nbWidgets){
+			if(i == 12){
 				$("#dash").append(ht);
 				fillPreWid();
 			}
@@ -219,9 +215,7 @@ function fillPreWid(){
 							$("#dash").fadeIn();
 						});
 						myScroll.refresh();
-						//hack screensize
 						$(window).resize();
-						
 						setTimeout(function(){$(".menuDash").fadeIn();}, 100);
 					}
 				}
