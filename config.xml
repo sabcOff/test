@@ -12,7 +12,6 @@
     <access origin="https://ssl11.ovh.net" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
-    <preference name="phonegap-version"           value="3.6.3" />
     <!--
     		ICON SETTINGS
     -->
